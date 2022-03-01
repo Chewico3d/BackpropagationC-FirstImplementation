@@ -119,28 +119,26 @@ namespace NeuralNetwork_First
             for (int x = 0; x < 10000; x++)
             {
 
-                int Random = (int)(NeuralNetwork.randomGenerator.NextDouble() * Program.Positions.Count);
-                Vector3f Pos = Program.Positions[Random];
-
-                network.Values[0][0] = (float)Pos.X / 800f;
-                network.Values[0][1] = (float)Pos.Y / 800f;
-
-                network.FrontPropagation();
-                switch (Pos.Z)
+                float[] Average = new float[3];
+                for(int z = 0; z < 8; z++)
                 {
-                    case 0:
-                        network.BackPropagate(new float[] {1,0,0});
-                        break;
-                    case 1:
-                        network.BackPropagate(new float[] { 0, 1, 0 });
-                        break;
-                    case 2:
-                        network.BackPropagate(new float[] { 0, 0, 1 });
-                        break;
-                    case 3:
-                        network.BackPropagate(new float[] { 0, 0, 0 });
-                        break;
+                    int Random = (int)(NeuralNetwork.randomGenerator.NextDouble() * Program.Positions.Count);
+                    Vector3f Pos = Program.Positions[Random];
+
+                    network.Values[0][0] = (float)Pos.X / 800f;
+                    network.Values[0][1] = (float)Pos.Y / 800f;
+
+
+                    network.FrontPropagation();
+
+                    Average[(int)Pos.Z] += 1;
+
                 }
+
+                for (int z = 0; z < 3; z++)
+                    Average[z] /= 8;
+
+                network.BackPropagate(Average);
 
             }
         }

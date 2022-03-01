@@ -40,7 +40,7 @@ namespace NeuralNetwork_First
             window = new RenderWindow(new VideoMode(1600, 800), "SFML Works!", Styles.Default, settings);
             window.Closed += new EventHandler(OnClose);
 
-            network = new NeuralNetwork(new int[] { 2, 16, 6,3});
+            network = new NeuralNetwork(new int[] { 2, 5,3});
             Aspect.SetUp();
 
             MainLoop();
@@ -82,7 +82,7 @@ namespace NeuralNetwork_First
 
         static void RecordProbes()
         {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) & ColorRel != 3)
             {
                 Vector2i CurrentPos = Mouse.GetPosition(window);
                 if(!LastButtonPressed)
@@ -92,10 +92,7 @@ namespace NeuralNetwork_First
             }
             else if (Mouse.IsButtonPressed(Mouse.Button.Right))
             {
-                Vector2i CurrentPos = Mouse.GetPosition(window);
-                if (!LastButtonPressed)
-                    Positions.Add(new Vector3f(CurrentPos.X, CurrentPos.Y, 3));
-
+                ColorRel = 3;
                 LastButtonPressed = true;
             }
             else

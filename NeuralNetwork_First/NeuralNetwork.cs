@@ -174,6 +174,7 @@ namespace NeuralNetwork_First
                     }
 
                     //Set the neuron error
+                    NeuronDerivativeError[x][y] /= LayersSizes[x + 1];
                     NeuronDerivativeError[x][y] *= DerivativeSigmoidFuntionFromSigmoid(Values[x][y]);
 
                     Bias[x][y] -= NeuronDerivativeError[x][y] * LearningRate;//NeuronDerivativeError[x][y] * LearningRate
